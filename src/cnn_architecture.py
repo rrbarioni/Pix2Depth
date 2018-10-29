@@ -21,8 +21,8 @@ def read_image(i):
     dPath = depPath+'dep_%d.jpg' % i
     return preprocess_input(cv2.imread(rPath)/1.), np.expand_dims(cv2.imread(dPath, 0),-1)/255.
 
-images = map(read_image, range(1449))
-X, Y = map(np.array, zip(*images))
+# images = map(read_image, range(1449))
+# X, Y = map(np.array, zip(*images))
 
 def model_1():
     input_layer = Input(shape=(224,224,3))
@@ -118,8 +118,8 @@ if __name__ == "__main__":
         model = model_3()
     model.summary()
 
-    print X.shape, Y.shape
-    print 'Training ...'
+    print('%s%s' % (X.shape, Y.shape))
+    print('Training ...')
 
     out_folder = 'preds_final'
     if not os.path.exists(out_folder):
@@ -133,11 +133,11 @@ if __name__ == "__main__":
         lr /= 10
 
     for i in range(20):
-        print i
+        print(i)
         img_gray = np.expand_dims(np.mean(X[0], axis=-1).astype(np.int), axis=-1)
         gt_dep = Y[0]*255.
         pred_dep = model.predict(X[:1])[0]*255.
-        print img_gray.shape, gt_dep.shape, pred_dep.shape
+        print('%s%s%s' % (img_gray.shape, gt_dep.shape, pred_dep.shape))
         cv2.imwrite("{}/model_{}_ep_{}.jpg".format(out_folder, model_name, i), np.hstack((img_gray, gt_dep, pred_dep)))
         model.compile(loss="mse", optimizer=SGD(lr=lr, decay=1e-2))
         model.fit(X,Y, epochs=10, verbose=1)

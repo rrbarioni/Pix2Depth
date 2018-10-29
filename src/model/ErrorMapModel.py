@@ -1,4 +1,4 @@
-from GeneratorForErrorMap import GeneratorErrorMap
+# from GeneratorForErrorMap import GeneratorErrorMap
 import os, os.path
 import pprint
 import glob

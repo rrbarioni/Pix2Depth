@@ -1,5 +1,6 @@
 from flask import Flask, render_template,request
-from main import pix2depth, portrait_mode, depth2pix
+# from main import pix2depth, portrait_mode, depth2pix
+from main import pix2depth
 import json
 import os
 from config import CONFIG
@@ -76,7 +77,7 @@ def example():
         epoch = str(min([32, int(epoch)]))
     path = 'http://www.cs.virginia.edu/~ks6cq/cyclegan-1/output/cyclegan/exp_rgb2dep/20171202-023330/imgs/'
     img = str(0)
-    print epoch
+    print(epoch)
     populate_page = []
     image_types = ['input','fake','cyc']
     a2b = ['A','B']
